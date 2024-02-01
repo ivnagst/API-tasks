@@ -12,13 +12,13 @@ interface Task {
 let tasks: Task[] = [];
 
 const generateId = (): string => {
-  return self.crypto.randomUUID();
+  return crypto.randomUUID();
 };
 
 export const createTask = (req: Request, res: Response) => {
   const { title, description } = req.body;
 
-  if (!title || description) {
+  if (!title || !description) {
     res.status(400).json({ error: 'Title and description are required' });
     return;
   }
@@ -26,7 +26,7 @@ export const createTask = (req: Request, res: Response) => {
   const newTask: Task = {
     id: generateId(),
     title,
-    description: '',
+    description,
     completed_at: null,
     created_at: new Date(),
     updated_at: new Date(),
